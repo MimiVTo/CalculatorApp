@@ -8,28 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    //BUTTONS ------------
     @State private var numsAndOperations: [[String]] = [
-            ["AC","+/-", "%", "÷"],
-            ["7","8", "9", "x"],
-            ["4","5", "6", "-"],
-            ["1","2", "3", "+"],
-            ["0", " . " , "="]
-        ]
+        ["AC","+/-", "%", "÷"],
+        ["7","8", "9", "x"],
+        ["4","5", "6", "-"],
+        ["1","2", "3", "+"],
+        ["0", " . " , "="]
+    ]
+    
+    //NUMBERS ------------
     @State var num1: Double = 0
     @State var num2: Double = 0
+    @State var num1Set: Bool = false
+    @State var num2Set: Bool = false
+    
+    //OPERATION ----------
+    @State var operationSign: String = ""
+    
+    //TOTAL --------------
     @State var total: Double = 0
     
     var body: some View {
-        
         VStack(alignment: .trailing){
-            
             Spacer()
-            
             Text("\(total)")
                 .font(.title)
                 .foregroundColor(Color.white)
                 .padding()
-            
             ForEach(numsAndOperations, id: \.self){ index in
                 HStack{
                     ForEach(index, id: \.self){ btn in
@@ -55,9 +61,13 @@ struct ContentView: View {
     }
 }
 
+
+//STRUCTS TO DESIGN IT --------------------
 struct OperationsView: View{
     var name: String = ""
     var body: some View {
+        
+        //DESIGN
         ZStack{
             Circle()
                 .fill(Color.orange)
@@ -72,6 +82,8 @@ struct OperationsView: View{
 struct ExtrasView: View{
     var name: String = ""
     var body: some View {
+        
+        //DESIGN
         ZStack{
             Circle()
                 .fill(Color(hex: "cccccc"))
@@ -86,6 +98,8 @@ struct ExtrasView: View{
 struct NumbersView: View {
     var name: String = ""
     var body: some View {
+        
+        //DESIGN
         ZStack{
             if name == "0"{
                 Rectangle()

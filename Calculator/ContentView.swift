@@ -20,14 +20,14 @@ struct ContentView: View {
     //NUMBERS ------------
     @State var num1: String = ""
     @State var num2: String = ""
-    @State var num1Set: Bool = false
-    @State var num2Set: Bool = false
     
     //OPERATION ----------
+    @State var operationSet: Bool = false
     @State var operationSign: String = ""
     
     //TOTAL --------------
-    @State var total: Double = 0
+    @State var equation: String = ""
+    @State var total: String = "0"
     
     var body: some View {
         VStack(alignment: .trailing){
@@ -39,7 +39,7 @@ struct ContentView: View {
             ForEach(numsAndOperations, id: \.self){ index in
                 HStack{
                     ForEach(index, id: \.self){ btn in
-                        ButtonView(action: action, item: "\(btn)")
+                        ButtonView(action: {handleClick(button: btn)}, item: "\(btn)")
                     }
                 }
             }
@@ -52,9 +52,50 @@ struct ContentView: View {
         }
     }
     
-    func action(){
+    
+    func handleClick(button: String){
         
+        if button == "="{
+            solveEquation()
+        }
+        else if button == "AC"{
+            num1 = ""
+            operationSign = ""
+            num2 = ""
+            operationSet = false
+            equation = ""
+            total = "0"
+        }
+        else if button == "+" || button == "-" || button == "x" || button == "÷"{
+            if num1 == ""{
+                num1 = "0"
+                operationSign = button
+                operationSet = true
+            }
+            else{
+                operationSign = button
+                operationSet = true
+            }
+        }
+        else{
+            if operationSet == false{
+                num1 += button
+            }
+            else{
+                num2 += button
+            }
+        }
+        
+        total = ("\(num1)" + "\(operationSign)" + "\(num2)")
     }
+    
+    func solveEquation(){
+//        var result: Double = 0
+        if operationSign == "+"{
+            total = "0"
+        }
+    }
+    
 }
 
 
@@ -159,11 +200,7 @@ struct ButtonView: View {
 //}
 
 //FUNCTIONS ----------------
-func handleClick(){
-    
-    
-    
-}
+
 //
 //func setNumber(){
 //    

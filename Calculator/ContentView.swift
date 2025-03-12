@@ -71,31 +71,82 @@ struct ContentView: View {
                 num1 = "0"
                 operationSign = button
                 operationSet = true
+                total = ("\(num1)" + "\(operationSign)" + "\(num2)")
             }
             else{
+                num2 = ""
                 operationSign = button
                 operationSet = true
+                total = ("\(num1)" + "\(operationSign)" + "\(num2)")
             }
         }
         else{
             if operationSet == false{
                 num1 += button
+                total = ("\(num1)" + "\(operationSign)" + "\(num2)")
             }
             else{
                 num2 += button
+                total = ("\(num1)" + "\(operationSign)" + "\(num2)")
             }
         }
         
-        total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+        
     }
     
     func solveEquation(){
-//        var result: Double = 0
-        if operationSign == "+"{
-            total = "0"
+        var result: Double = 0
+        
+        if operationSet == true{
+            if operationSign == "+"{
+                
+                if let doubleNum1 = Double(num1){
+                    if let doubleNum2 = Double(num2){
+                        result = doubleNum1 + doubleNum2
+                    }
+                }
+                
+                total = ("\(result)")
+                num1 = ("\(result)")
+            }
+            else if operationSign == "-"{
+                if let doubleNum1 = Double(num1){
+                    if let doubleNum2 = Double(num2){
+                        result = doubleNum1 - doubleNum2
+                    }
+                }
+                
+                total = ("\(result)")
+                num1 = ("\(result)")
+            }
+            else if operationSign == "x"{
+                if let doubleNum1 = Double(num1){
+                    if let doubleNum2 = Double(num2){
+                        result = (doubleNum1 * doubleNum2)
+                    }
+                }
+                
+                total = ("\(result)")
+                num1 = ("\(result)")
+            }
+            else{
+                if num2 == "0"{
+                    total = "ERROR"
+                }
+                else{
+                    if let doubleNum1 = Double(num1){
+                        if let doubleNum2 = Double(num2){
+                            result = (doubleNum1 / doubleNum2)
+                        }
+                    }
+                    
+                    total = ("\(result)")
+                    num1 = ("\(result)")
+                }
+            }
         }
+        
     }
-    
 }
 
 

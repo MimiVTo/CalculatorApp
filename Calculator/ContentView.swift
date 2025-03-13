@@ -23,7 +23,7 @@ struct ContentView: View {
     @State var decimalSet: Bool = false
     @State var percentChosen: Bool = false
     
-    //
+    //Keeping track of state
     @State var positive: Bool = true
     @State var negative: Bool = false
     

@@ -32,6 +32,7 @@ struct ContentView: View {
     @State var operationSign: String = ""
     
     //TOTAL --------------
+    @State var solvedBefore: Bool = false
     @State var equation: String = ""
     @State var total: String = "0"
     
@@ -132,13 +133,34 @@ struct ContentView: View {
             }
         }
         else{
-            if operationSet == false{
-                num1 += button
-                total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+            if solvedBefore == true{
+                solvedBefore = false
+                
+                num1 = ""
+                operationSign = ""
+                num2 = ""
+                operationSet = false
+                equation = ""
+                total = "0"
+                
+                if operationSet == false{
+                    num1 += button
+                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                }
+                else{
+                    num2 += button
+                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                }
             }
             else{
-                num2 += button
-                total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                if operationSet == false{
+                    num1 += button
+                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                }
+                else{
+                    num2 += button
+                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                }
             }
         }
         
@@ -147,6 +169,7 @@ struct ContentView: View {
     
     func solveEquation(){
         var result: Double = 0
+        solvedBefore = true
         
         if operationSet == true{
             if operationSign == "+"{

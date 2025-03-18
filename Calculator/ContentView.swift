@@ -133,16 +133,26 @@ struct ContentView: View {
             }
         }
         else{
-            if solvedBefore == true{
-                solvedBefore = false
-                
-                num1 = ""
-                operationSign = ""
-                num2 = ""
-                operationSet = false
-                equation = ""
-                total = "0"
-                
+//            if solvedBefore == true{
+//                solvedBefore = false
+//                
+//                num1 = ""
+//                operationSign = ""
+//                num2 = ""
+//                operationSet = false
+//                equation = ""
+//                total = "0"
+//                
+//                if operationSet == false{
+//                    num1 += button
+//                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+//                }
+//                else{
+//                    num2 += button
+//                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+//                }
+//            }
+//            else{
                 if operationSet == false{
                     num1 += button
                     total = ("\(num1)" + "\(operationSign)" + "\(num2)")
@@ -151,17 +161,7 @@ struct ContentView: View {
                     num2 += button
                     total = ("\(num1)" + "\(operationSign)" + "\(num2)")
                 }
-            }
-            else{
-                if operationSet == false{
-                    num1 += button
-                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
-                }
-                else{
-                    num2 += button
-                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
-                }
-            }
+//            }
         }
         
         

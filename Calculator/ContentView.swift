@@ -25,7 +25,7 @@ struct ContentView: View {
     
     //Keeping track of state
     @State var positive: Bool = true
-    @State var negative: Bool = false
+    @State var sign: String = ""
     
     //OPERATION ----------
     @State var operationSet: Bool = false
@@ -33,6 +33,7 @@ struct ContentView: View {
     
     //TOTAL --------------
     @State var solvedBefore: Bool = false
+    @State var result: Double = 0
     @State var equation: String = ""
     @State var total: String = "0"
     
@@ -72,28 +73,36 @@ struct ContentView: View {
             operationSet = false
             equation = ""
             total = "0"
+            result = 0
         }
         else if button == "+/-"{
             if operationSet == false{
                 if positive == true{
-                    num1 = "-" + num1
-                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                    sign = ""
+                    sign = "-"
+                    num1 = (sign + num1)
+                    positive = false
                 }
                 else{
-                    num1 = "+" + num1
-                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                    sign = ""
+                    num1 = (sign + num1)
+                    positive = true
                 }
             }
             else {
                 if positive == true{
-                    num2 = "-" + num2
-                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                    sign = ""
+                    sign = "-"
+                    num2 = (sign + num2)
+                    positive = false
                 }
                 else{
-                    num2 = "+" + num2
-                    total = ("\(num1)" + "\(operationSign)" + "\(num2)")
+                    sign = ""
+                    num2 = (sign + num2)
+                    positive = true
                 }
             }
+            total = ("\(num1)" + "\(operationSign)" + "\(num2)")
         }
         else if button == "+" || button == "-" || button == "x" || button == "÷"{
             if num1 == ""{
@@ -112,9 +121,26 @@ struct ContentView: View {
             }
         }
         else if button == "%"{
-            percentChosen = true
             
-            total = total + "%"
+            if operationSet == false{
+                if let num = Double(total){
+                    total = ("\(num/100)")
+                    num1 = ("\(num/100)")
+                }
+            }
+            else{
+//                total = ("\(result/100)")
+                if let doubleNum1 = Double(num1), let doubleNum2 = Double(num2){
+                    total = ("\(doubleNum1 + (doubleNum2/100))")
+                    num1 = ("\(doubleNum1 + (doubleNum2/100))")
+                }
+                operationSet = false
+                num2 = ""
+            }
+
+            
+//            num1 = ("\(result/100)")
+
         }
         else if button == "."{
             if operationSet == false{
@@ -168,7 +194,7 @@ struct ContentView: View {
     }
     
     func solveEquation(){
-        var result: Double = 0
+
         solvedBefore = true
         
         if operationSet == true{
@@ -183,12 +209,6 @@ struct ContentView: View {
                 total = ("\(result)")
                 num1 = ("\(result)")
                 
-                if percentChosen == true{
-                    total = ("\(result/100)")
-                    num1 = ("\(result/100)")
-                    percentChosen = false
-                }
-                
             }
             else if operationSign == "-"{
                 if let doubleNum1 = Double(num1){
@@ -200,11 +220,11 @@ struct ContentView: View {
                 total = ("\(result)")
                 num1 = ("\(result)")
                 
-                if percentChosen == true{
-                    total = ("\(result/100)")
-                    num1 = ("\(result/100)")
-                    percentChosen = false
-                }
+//                if percentChosen == true{
+//                    total = ("\(result/100)")
+//                    num1 = ("\(result/100)")
+//                    percentChosen = false
+//                }
             }
             else if operationSign == "x"{
                 if let doubleNum1 = Double(num1){
@@ -216,11 +236,11 @@ struct ContentView: View {
                 total = ("\(result)")
                 num1 = ("\(result)")
                 
-                if percentChosen == true{
-                    total = ("\(result/100)")
-                    num1 = ("\(result/100)")
-                    percentChosen = false
-                }
+//                if percentChosen == true{
+//                    total = ("\(result/100)")
+//                    num1 = ("\(result/100)")
+//                    percentChosen = false
+//                }
                 
             }
             else{

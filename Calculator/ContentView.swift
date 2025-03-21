@@ -80,31 +80,41 @@ struct ContentView: View {
             total = "0"
             result = 0
             sign = ""
+            positive = true
         }
         else if button == "+/-"{
             //changes it into a positive or negative
-            
+            var number: Double = 0
             if operationSet == false{
                 if positive == true{
-                    sign = "-"
-                    num1 = sign + num1
+                    if let negativeNum = Double(num1){
+                        number = negativeNum * -1
+                        num1 = ("\(number)")
+                    }
+
                     positive = false
                 }
                 else{
-                    sign = ""
-                    num1 = sign + num1
+                    if let negativeNum = Double(num1){
+                        number = negativeNum * -1
+                        num1 = ("\(number)")
+                    }
                     positive = true
                 }
             }
             else {
                 if positive == true{
-                    sign = "-"
-                    num2 = sign + num2
+                    if let negativeNum = Double(num2){
+                        number = negativeNum * -1
+                        num2 = ("\(number)")
+                    }
                     positive = false
                 }
                 else{
-                    sign = ""
-                    num2 = sign + num2
+                    if let negativeNum = Double(num2){
+                        number = negativeNum * -1
+                        num2 = ("\(number)")
+                    }
                     positive = true
                 }
             }

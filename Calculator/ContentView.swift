@@ -39,13 +39,16 @@ struct ContentView: View {
     
     var body: some View {
         VStack(alignment: .trailing){
+            //adds the gap
             Spacer()
             Text("\(total)")
+            //THE TOTAL
                 .font(.largeTitle)
                 .foregroundColor(Color.white)
                 .padding()
             ForEach(numsAndOperations, id: \.self){ index in
                 HStack{
+                    //BUTTONS AND STUFF
                     ForEach(index, id: \.self){ btn in
                         ButtonView(action: {handleClick(button: btn)}, item: "\(btn)")
                     }
@@ -64,9 +67,11 @@ struct ContentView: View {
     func handleClick(button: String){
         
         if button == "="{
+            //send them to the solving function
             solveEquation()
         }
         else if button == "AC"{
+            //resets everything
             num1 = ""
             operationSign = ""
             num2 = ""
@@ -74,8 +79,11 @@ struct ContentView: View {
             equation = ""
             total = "0"
             result = 0
+            sign = ""
         }
         else if button == "+/-"{
+            //changes it into a positive or negative
+            
             if operationSet == false{
                 if positive == true{
                     sign = ""
@@ -105,6 +113,7 @@ struct ContentView: View {
             total = ("\(num1)" + "\(operationSign)" + "\(num2)")
         }
         else if button == "+" || button == "-" || button == "x" || button == "÷"{
+            //setting the operators
             if num1 == ""{
                 num1 = "0"
                 operationSign = button
@@ -121,15 +130,22 @@ struct ContentView: View {
             }
         }
         else if button == "%"{
-            
+            //CHANGING STUFF INTO DECIMAL FORM
             if operationSet == false{
+                //Ex: press 3 then click %. It turns into 0.03
                 if let num = Double(total){
                     total = ("\(num/100)")
                     num1 = ("\(num/100)")
                 }
             }
+            //JUST IN CASE THEY DO IT AFTER THEY SOLVE AN EQUATION
+            else if solvedBefore == true{
+                total = ("\(result/100)")
+                num1 = ("\(result/100)")
+            }
             else{
 //                total = ("\(result/100)")
+                //IN CASE THEY PUT AN EQUATION
                 if let doubleNum1 = Double(num1), let doubleNum2 = Double(num2){
                     total = ("\(doubleNum1 + (doubleNum2/100))")
                     num1 = ("\(doubleNum1 + (doubleNum2/100))")
@@ -143,7 +159,9 @@ struct ContentView: View {
 
         }
         else if button == "."{
+            //THIS IS FOR DECIMALS
             if operationSet == false{
+                //CHECKING IF THEY SET THE FIRST NUMBER YET
                 if decimalSet == false{
                     num1 += button
                     total = ("\(num1)" + "\(operationSign)" + "\(num2)")
@@ -151,6 +169,7 @@ struct ContentView: View {
                 }
             }
             else{
+                //CHECKS IF THEY DID THE SECOND NUMBER
                 if decimalSet == false{
                     num2 += button
                     total = ("\(num1)" + "\(operationSign)" + "\(num2)")
@@ -179,6 +198,8 @@ struct ContentView: View {
 //                }
 //            }
 //            else{
+            
+            //SETTING THE NUMBERS IN THE EQUATION
                 if operationSet == false{
                     num1 += button
                     total = ("\(num1)" + "\(operationSign)" + "\(num2)")
@@ -194,12 +215,13 @@ struct ContentView: View {
     }
     
     func solveEquation(){
-
+        //Setting it be solved
         solvedBefore = true
         
         if operationSet == true{
             if operationSign == "+"{
-                
+                //ADDITION
+                //transforming stuff into doubles
                 if let doubleNum1 = Double(num1){
                     if let doubleNum2 = Double(num2){
                         result = doubleNum1 + doubleNum2
@@ -208,9 +230,11 @@ struct ContentView: View {
 
                 total = ("\(result)")
                 num1 = ("\(result)")
+
                 
             }
             else if operationSign == "-"{
+                //SUBTRACTION
                 if let doubleNum1 = Double(num1){
                     if let doubleNum2 = Double(num2){
                         result = doubleNum1 - doubleNum2
@@ -227,6 +251,7 @@ struct ContentView: View {
 //                }
             }
             else if operationSign == "x"{
+                //MULTIPLICATIOn
                 if let doubleNum1 = Double(num1){
                     if let doubleNum2 = Double(num2){
                         result = (doubleNum1 * doubleNum2)
@@ -245,9 +270,11 @@ struct ContentView: View {
             }
             else{
                 if num2 == "0"{
+                    //if its divided by 0, turn it into error
                     total = "ERROR"
                 }
                 else{
+                    //DIVISION
                     if let doubleNum1 = Double(num1){
                         if let doubleNum2 = Double(num2){
                             result = (doubleNum1 / doubleNum2)
@@ -257,17 +284,19 @@ struct ContentView: View {
                     total = ("\(result)")
                     num1 = ("\(result)")
                     
-                    if percentChosen == true{
-                        total = ("\(result/100)")
-                        num1 = ("\(result/100)")
-                        percentChosen = false
-                    }
+                    //converts stuff
+//                    if percentChosen == true{
+//                        total = ("\(result/100)")
+//                        num1 = ("\(result/100)")
+//                        percentChosen = false
+//                    }
                     
                 }
             }
         }
         else{
             if percentChosen == true{
+                //if they choose the percent and stuff but not the second number
                 if let doubleNum1 = Double(num1){
                     total = ("\(doubleNum1/100)")
                     num1 = ("\(doubleNum1/100)")
@@ -287,6 +316,7 @@ struct ButtonView: View {
     var body: some View {
         Button(action: action){
             Text(item)
+            //creating the button and stylizing it
                 .font(.largeTitle)
                 .frame(width: decideWidthFrame(item: item), height: 80)
                 .background(backgroundColor(item: item))
@@ -304,6 +334,7 @@ struct ButtonView: View {
         }
     }
     func backgroundColor(item: String) -> Color{
+        //SETTING THE BACKGROUND COLOR FOR THE BUTTONS
         if item == "=" || item == "+" || item == "-" || item == "x" || item == "÷"{
             return .orange
         }
@@ -315,6 +346,7 @@ struct ButtonView: View {
         }
     }
     func fontColor(item: String) -> Color{
+        //FONT COLOR FOR THE NUMBERS AND OTHER FUNCTIONS OF THE BUTTON
         if item == "AC" || item == "+/-" || item == "%"{
             return .black
         }

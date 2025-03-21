@@ -87,6 +87,7 @@ struct ContentView: View {
             var number: Double = 0
             if operationSet == false{
                 if positive == true{
+                    //convert and then multiple by -1
                     if let negativeNum = Double(num1){
                         number = negativeNum * -1
                         num1 = ("\(number)")
@@ -95,6 +96,7 @@ struct ContentView: View {
                     positive = false
                 }
                 else{
+                    //convert and then multiple by -1
                     if let negativeNum = Double(num1){
                         number = negativeNum * -1
                         num1 = ("\(number)")
@@ -104,6 +106,7 @@ struct ContentView: View {
             }
             else {
                 if positive == true{
+                    //convert and then multiple by -1
                     if let negativeNum = Double(num2){
                         number = negativeNum * -1
                         num2 = ("\(number)")
@@ -111,6 +114,7 @@ struct ContentView: View {
                     positive = false
                 }
                 else{
+                    //convert and then multiple by -1
                     if let negativeNum = Double(num2){
                         number = negativeNum * -1
                         num2 = ("\(number)")
@@ -118,6 +122,7 @@ struct ContentView: View {
                     positive = true
                 }
             }
+            //shows the total equation
             total = ("\(num1)" + "\(operationSign)" + "\(num2)")
         }
         else if button == "+" || button == "-" || button == "x" || button == "÷"{

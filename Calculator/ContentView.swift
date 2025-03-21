@@ -86,27 +86,25 @@ struct ContentView: View {
             
             if operationSet == false{
                 if positive == true{
-                    sign = ""
                     sign = "-"
-                    num1 = (sign + num1)
+                    num1 = sign + num1
                     positive = false
                 }
                 else{
                     sign = ""
-                    num1 = (sign + num1)
+                    num1 = sign + num1
                     positive = true
                 }
             }
             else {
                 if positive == true{
-                    sign = ""
                     sign = "-"
-                    num2 = (sign + num2)
+                    num2 = sign + num2
                     positive = false
                 }
                 else{
                     sign = ""
-                    num2 = (sign + num2)
+                    num2 = sign + num2
                     positive = true
                 }
             }
